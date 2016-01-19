@@ -20,22 +20,30 @@
 #include "SdkboxIAPPrivatePCH.h"
 #include "PluginIAP.h"
 
-void USdkboxIAPFunctions::Initialize(FString jsonstring)
+void USdkboxIAPFunctions::SdkboxIapInitialize(FString jsonstring)
 {
-    sdkbox::IAP::initialize(jsonstring);
+#if PLATFORM_IOS || PLATFORM_ANDROID    
+    sdkbox::IAP::init(TCHAR_TO_ANSI(*jsonstring));
+#endif
 }
 
-void USdkboxIAPFunctions::Purchase(FString product) 
+void USdkboxIAPFunctions::SdkboxIapPurchase(FString product) 
 {
-    sdkbox::IAP::purchase(product);
+#if PLATFORM_IOS || PLATFORM_ANDROID    
+    sdkbox::IAP::purchase(TCHAR_TO_ANSI(*product));
+#endif
 }
 
-void USdkboxIAPFunctions::Refresh() 
+void USdkboxIAPFunctions::SdkboxIapRefresh() 
 {
+#if PLATFORM_IOS || PLATFORM_ANDROID        
     sdkbox::IAP::refresh();
+#endif
 }
 
-void USdkboxIAPFunctions::Restore() 
+void USdkboxIAPFunctions::SdkboxIapRestore() 
 {
+#if PLATFORM_IOS || PLATFORM_ANDROID        
     sdkbox::IAP::restore();
+#endif
 }

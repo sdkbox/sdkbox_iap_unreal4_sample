@@ -32,11 +32,11 @@ public:
 	USdkboxIAPProductSettings(const FObjectInitializer& ObjectInitializer);
 	
 	UPROPERTY(Config, EditAnywhere, Category=General, meta=(DisplayName="Product Name"))
-	FString name;
+	FString Name;
 
 	UPROPERTY(Config, EditAnywhere, Category=General, meta=(DisplayName="Product ID"))
-	FString id;
+	FString Id;
     
     UPROPERTY(Config, EditAnywhere, Category=General, meta=(DisplayName="Is Consumable"))
-	bool consumable;
+	bool Consumable;
 };

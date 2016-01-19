@@ -19,11 +19,13 @@
 
 #include "SdkboxIAPPrivatePCH.h"
 
+USdkboxIAPComponent::FBoolDelegate USdkboxIAPComponent::OnInitializedDelegate;
+
 void USdkboxIAPComponent::OnRegister()
 {
 	Super::OnRegister();
     
-	USdkboxIAPComponent::OnInitializedDelegate.AddUObject(this, &USdkboxIAPComponent::OnInitialized_Handler);
+	USdkboxIAPComponent::OnInitializedDelegate.AddUObject(this, &USdkboxIAPComponent::OnInitializedDelegate_Handler);
 }
 
 void USdkboxIAPComponent::OnUnregister()
@@ -32,7 +34,4 @@ void USdkboxIAPComponent::OnUnregister()
     
 	USdkboxIAPComponent::OnInitializedDelegate.RemoveAll(this);
 }
-
-USdkboxIAPComponent::BoolDelegate USdkboxIAPComponent::OnInitializedDelegate;
-
 

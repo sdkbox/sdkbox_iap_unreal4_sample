@@ -29,14 +29,14 @@ class USdkboxIAPFunctions
 public:
 
 	UFUNCTION(BlueprintCallable, meta = (Keywords = "SDKBOX iap"), Category = "SDKBOX")
-	static void Initialize(FString jsonstring);
+	static void SdkboxIapInitialize(FString jsonstring);
 	
 	UFUNCTION(BlueprintCallable, meta = (Keywords = "SDKBOX iap"), Category = "SDKBOX")
-	static void Purchase(FString product);
+	static void SdkboxIapPurchase(FString product);
 	
 	UFUNCTION(BlueprintCallable, meta = (Keywords = "SDKBOX iap"), Category = "SDKBOX")
-	static void Refresh();
+	static void SdkboxIapRefresh();
 
 	UFUNCTION(BlueprintCallable, meta = (Keywords = "SDKBOX iap"), Category = "SDKBOX")
-	static void Restore();
+	static void SdkboxIapRestore();
 };

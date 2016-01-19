@@ -21,7 +21,7 @@
 #include "SdkboxIAPSettings.h"
 #include "ISettingsModule.h"
 
-DEFINE_LOG_CATEGORY(LogSDKBOX);
+//DEFINE_LOG_CATEGORY(LogSDKBOX);
 
 #define LOCTEXT_NAMESPACE "SDKBOX"
 

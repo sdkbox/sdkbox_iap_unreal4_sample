@@ -29,8 +29,15 @@ class USdkboxIAPComponent : public UActorComponent
 	
 public:
 
-    DECLARE_MULTICAST_DELEGATE(FBoolDelegate);
+    DECLARE_MULTICAST_DELEGATE_OneParam(FBoolDelegate, bool);
 	//DECLARE_MULTICAST_DELEGATE_OneParam(FProductDelegate, FSdkboxIAPProduct);
     
+    void OnRegister() override;
+    void OnUnregister() override;
+    
    	static FBoolDelegate OnInitializedDelegate;
+       
+protected:
+
+	void OnInitializedDelegate_Handler(bool result) { OnInitializedDelegate.Broadcast(result); }
 };
