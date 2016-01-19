@@ -30,4 +30,7 @@ class USdkboxIAPSettings
 public:
 
 	USdkboxIAPSettings(const FObjectInitializer& ObjectInitializer);
+    
+    UPROPERTY(Config, EditAnywhere, Category=General, meta=(DisplayName="Test"))
+	bool Test;
 };
