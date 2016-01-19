@@ -31,7 +31,7 @@ public:
 	UFUNCTION(BlueprintCallable, meta = (Keywords = "SDKBOX iap"), Category = "SDKBOX")
 	static void Initialize(FString jsonstring);
 	
-	UFUNCTION(BlueprintPure,     meta = (Keywords = "SDKBOX iap"), Category = "SDKBOX")
+	UFUNCTION(BlueprintCallable, meta = (Keywords = "SDKBOX iap"), Category = "SDKBOX")
 	static void Purchase(FString product);
 	
 	UFUNCTION(BlueprintCallable, meta = (Keywords = "SDKBOX iap"), Category = "SDKBOX")
