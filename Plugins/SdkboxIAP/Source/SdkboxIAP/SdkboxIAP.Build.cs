@@ -17,10 +17,17 @@
  THE SOFTWARE.
  ****************************************************************************/
 
+using System.IO;
+
 namespace UnrealBuildTool.Rules
 {
 	public class SdkboxIAP : ModuleRules
 	{
+        private string ModulePath
+        {
+            get { return Path.GetDirectoryName( RulesCompiler.GetModuleFilename( this.GetType().Name ) ); }
+        }
+        
 		public SdkboxIAP(TargetInfo Target)
 		{
 			PublicIncludePaths.AddRange(
@@ -29,12 +36,12 @@ namespace UnrealBuildTool.Rules
 				}
 			);
 
-			PrivateIncludePaths.AddRange(
-				new string[] {
-					"Developer/SdkboxIAP/Private",
-					// ... add other private include paths required here ...
-				}
-			);
+			// PrivateIncludePaths.AddRange(
+			// 	new string[] {
+			// 		"Developer/SdkboxIAP/Private",
+			// 		// ... add other private include paths required here ...
+			// 	}
+			// );
 
 			PublicDependencyModuleNames.AddRange(
 				new string[]
@@ -69,8 +76,8 @@ namespace UnrealBuildTool.Rules
 
 			if (Target.Platform == UnrealTargetPlatform.IOS) {
                 
-                PublicAdditionalLibraries.Add("../../lib/iOS/PluginIAP.a");
-			    PublicAdditionalLibraries.Add("../../lib/iOS/sdkbox.a");
+                PublicAdditionalLibraries.Add(Path.Combine(ModulePath, "../../lib/iOS/PluginIAP.a"));
+			    PublicAdditionalLibraries.Add(Path.Combine(ModulePath, "../../lib/iOS/sdkbox.a"));
 			
                 PublicFrameworks.AddRange(
                     new string[] 
