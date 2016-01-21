@@ -74,7 +74,8 @@ namespace UnrealBuildTool.Rules
 			);
 
 
-			if (Target.Platform == UnrealTargetPlatform.IOS) {
+			if (Target.Platform == UnrealTargetPlatform.IOS) 
+			{
                 
                 PublicAdditionalLibraries.Add(Path.Combine(ModulePath, "../../lib/iOS/PluginIAP.a"));
 			    PublicAdditionalLibraries.Add(Path.Combine(ModulePath, "../../lib/iOS/sdkbox.a"));
@@ -86,6 +87,13 @@ namespace UnrealBuildTool.Rules
                         "Security"
                     }
                 );
+			}
+			else if (Target.Platform == UnrealTargetPlatform.Android)
+			{
+				PublicAdditionalLibraries.Add(Path.Combine(ModulePath, "../../lib/Android/libiap.so"));
+                
+				PrivateDependencyModuleNames.AddRange(new string[] { "Launch" });
+				AdditionalPropertiesForReceipt.Add(new ReceiptProperty("AndroidPlugin", Path.Combine(ModulePath, "SdkboxIAP.xml")));
 			}
 		}
 	}

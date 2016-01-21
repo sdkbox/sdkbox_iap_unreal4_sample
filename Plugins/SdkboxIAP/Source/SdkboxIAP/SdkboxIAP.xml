@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root xmlns:android="http://schemas.android.com/apk/res/android">
+  
+  <init>
+	<log text="SDKBOX IAP Init"/>
+  </init>
+
+  <resourceCopies>
+	<copyFile src="$S(PluginDir)/../../lib/Android/libiap.so"            dst="$S(BuildDir)/libs/armeabi-v7a/libiap.so" />
+    <copyFile src="$S(PluginDir)/../../lib/Android/sdkbox.jar"           dst="$S(BuildDir)/libs/sdkbox.jar" />
+    <copyFile src="$S(PluginDir)/../../lib/Android/PluginIAP.jar"        dst="$S(BuildDir)/libs/PluginIAP.jar" />
+  </resourceCopies>
+  
+  <gameActivityImportAdditions>
+    <insert>
+      import android.content.Intent;
+      import com.sdkbox.plugin.SDKBox;
+    </insert>
+  </gameActivityImportAdditions>
+    
+  <gameActivityOnCreateAdditions>
+    <insert>
+      System.loadLibrary("iap");
+      SDKBox.init(this);
+    </insert>
+  </gameActivityOnCreateAdditions>
+
+</root>

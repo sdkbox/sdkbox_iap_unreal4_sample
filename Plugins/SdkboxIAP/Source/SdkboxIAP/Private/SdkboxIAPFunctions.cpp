@@ -23,27 +23,27 @@
 void USdkboxIAPFunctions::SdkboxIapInitialize(FString jsonstring)
 {
 #if PLATFORM_IOS || PLATFORM_ANDROID    
-    sdkbox::IAP::init(TCHAR_TO_ANSI(*jsonstring));
+    sdkbox::IAP::init();//(const char*)TCHAR_TO_ANSI(*jsonstring));
 #endif
 }
 
 void USdkboxIAPFunctions::SdkboxIapPurchase(FString product) 
 {
-#if PLATFORM_IOS || PLATFORM_ANDROID    
-    sdkbox::IAP::purchase(TCHAR_TO_ANSI(*product));
+#if PLATFORM_IOS //|| PLATFORM_ANDROID    
+    //sdkbox::IAP::purchase((const char*)TCHAR_TO_ANSI(*product));
 #endif
 }
 
 void USdkboxIAPFunctions::SdkboxIapRefresh() 
 {
-#if PLATFORM_IOS || PLATFORM_ANDROID        
+#if PLATFORM_IOS //|| PLATFORM_ANDROID        
     sdkbox::IAP::refresh();
 #endif
 }
 
 void USdkboxIAPFunctions::SdkboxIapRestore() 
 {
-#if PLATFORM_IOS || PLATFORM_ANDROID        
+#if PLATFORM_IOS //|| PLATFORM_ANDROID        
     sdkbox::IAP::restore();
 #endif
 }
