@@ -20,6 +20,8 @@
 
 #include "SdkboxIAPFunctions.generated.h"
 
+class SdkboxIAPListener;
+
 UCLASS(NotBlueprintable)
 class USdkboxIAPFunctions 
     : public UObject 
@@ -39,4 +41,8 @@ public:
 
 	UFUNCTION(BlueprintCallable, meta = (Keywords = "SDKBOX iap"), Category = "SDKBOX")
 	static void SdkboxIapRestore();
+   
+protected:
+
+    static SdkboxIAPListener* _listener;
 };

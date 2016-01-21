@@ -17,29 +17,10 @@
  THE SOFTWARE.
  ****************************************************************************/
 
-#pragma once
+#include "SdkboxIAPPrivatePCH.h"
+#include "SdkboxIAPProduct.h"
 
-#include "SdkboxIAPFunctions.h"
-#include "SdkboxIAPComponent.generated.h"
-
-UCLASS(ClassGroup=SDKBOX, HideCategories=(Activation, "Components|Activation", Collision), meta=(BlueprintSpawnableComponent))
-class USdkboxIAPComponent : public UActorComponent
+USdkboxIAPProduct::USdkboxIAPProduct(const FObjectInitializer& ObjectInitializer)
+    : Super(ObjectInitializer)
 {
-	GENERATED_BODY()
-	
-public:
-    
-    void OnRegister() override;
-    void OnUnregister() override;
-    
-    DECLARE_MULTICAST_DELEGATE_OneParam(FBoolDelegate, bool);
-   	static FBoolDelegate OnInitializedDelegate;
-    
-    DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FBoolDynDelegate, bool, Status);
-    UPROPERTY(BlueprintAssignable)
-    FBoolDynDelegate OnInitialized;
-    
-protected:
-
-	void OnInitializedDelegate_Handler(bool result) { OnInitialized.Broadcast(result); }
-};
+}

@@ -20,19 +20,67 @@
 #include "SdkboxIAPPrivatePCH.h"
 #include "SdkboxIAPListener.h"
 
-USdkboxIAPComponent::FBoolDelegate USdkboxIAPComponent::OnInitializedDelegate;
-
-void USdkboxIAPComponent::OnRegister()
+/**
+* Called when IAP initialized
+*/
+void SdkboxIAPListener::onInitialized(bool success)
 {
-	Super::OnRegister();
+    USdkboxIAPComponent::OnInitializedDelegate.Broadcast(success);
+}
+
+/**
+* Called when an IAP processed successfully
+*/
+void SdkboxIAPListener::onSuccess(const sdkbox::Product& p)
+{
     
-	USdkboxIAPComponent::OnInitializedDelegate.AddUObject(this, &USdkboxIAPComponent::OnInitializedDelegate_Handler);
 }
 
-void USdkboxIAPComponent::OnUnregister()
+/**
+* Called when an IAP fails
+*/
+void SdkboxIAPListener::onFailure(const sdkbox::Product& p, const std::string& msg)
 {
-	Super::OnUnregister();
-        
-	USdkboxIAPComponent::OnInitializedDelegate.RemoveAll(this);
+    
 }
 
+/**
+* Called when user canceled the IAP
+*/
+void SdkboxIAPListener::onCanceled(const sdkbox::Product& p)
+{
+    
+}
+
+/**
+* Called when server returns the IAP items user already purchased
+* @note this callback will be called multiple times if there are multiple IAP
+*/
+void SdkboxIAPListener::onRestored(const sdkbox::Product& p)
+{
+    
+}
+
+/**
+* Called the product request is successful, usually developers use product request to update the latest info(title, price) from IAP
+*/
+void SdkboxIAPListener::onProductRequestSuccess(const std::vector<sdkbox::Product>& products)
+{
+    
+}
+
+/**
+* Called when the product request fails
+*/
+void SdkboxIAPListener::onProductRequestFailure(const std::string& msg)
+{
+    
+}
+
+/**
+    * Called when the restore completed
+    */
+void SdkboxIAPListener::onRestoreComplete(bool ok, const std::string& msg)
+{
+    
+}

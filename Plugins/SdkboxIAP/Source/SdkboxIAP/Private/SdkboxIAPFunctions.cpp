@@ -18,19 +18,29 @@
  ****************************************************************************/
 
 #include "SdkboxIAPPrivatePCH.h"
+#include "SdkboxIAPListener.h"
 #include "PluginIAP.h"
+
+SdkboxIAPListener* USdkboxIAPFunctions::_listener = nullptr;
 
 void USdkboxIAPFunctions::SdkboxIapInitialize(FString jsonstring)
 {
-#if PLATFORM_IOS || PLATFORM_ANDROID    
-    sdkbox::IAP::init();//(const char*)TCHAR_TO_ANSI(*jsonstring));
+#if PLATFORM_IOS || PLATFORM_ANDROID
+    if (!_listener)
+    {
+        _listener = new SdkboxIAPListener;
+        sdkbox::IAP::setListener(_listener);    
+    }
+    
+    const char* s = (const char*)TCHAR_TO_ANSI(*jsonstring);
+    sdkbox::IAP::init(s);
 #endif
 }
 
 void USdkboxIAPFunctions::SdkboxIapPurchase(FString product) 
 {
 #if PLATFORM_IOS //|| PLATFORM_ANDROID    
-    //sdkbox::IAP::purchase((const char*)TCHAR_TO_ANSI(*product));
+    sdkbox::IAP::purchase((const char*)TCHAR_TO_ANSI(*product));
 #endif
 }
 

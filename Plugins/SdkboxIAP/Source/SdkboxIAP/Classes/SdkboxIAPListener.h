@@ -19,27 +19,51 @@
 
 #pragma once
 
-#include "SdkboxIAPFunctions.h"
-#include "SdkboxIAPComponent.generated.h"
+#include "PluginIAP.h"
 
-UCLASS(ClassGroup=SDKBOX, HideCategories=(Activation, "Components|Activation", Collision), meta=(BlueprintSpawnableComponent))
-class USdkboxIAPComponent : public UActorComponent
+class SdkboxIAPListener
+    : public sdkbox::IAPListener
 {
-	GENERATED_BODY()
-	
 public:
-    
-    void OnRegister() override;
-    void OnUnregister() override;
-    
-    DECLARE_MULTICAST_DELEGATE_OneParam(FBoolDelegate, bool);
-   	static FBoolDelegate OnInitializedDelegate;
-    
-    DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FBoolDynDelegate, bool, Status);
-    UPROPERTY(BlueprintAssignable)
-    FBoolDynDelegate OnInitialized;
-    
-protected:
 
-	void OnInitializedDelegate_Handler(bool result) { OnInitialized.Broadcast(result); }
+    /**
+    * Called when IAP initialized
+    */
+    void onInitialized(bool success);
+
+    /**
+    * Called when an IAP processed successfully
+    */
+    void onSuccess(const sdkbox::Product& p);
+
+    /**
+    * Called when an IAP fails
+    */
+    void onFailure(const sdkbox::Product& p, const std::string& msg);
+
+    /**
+    * Called when user canceled the IAP
+    */
+    void onCanceled(const sdkbox::Product& p);
+
+    /**
+    * Called when server returns the IAP items user already purchased
+    * @note this callback will be called multiple times if there are multiple IAP
+    */
+    void onRestored(const sdkbox::Product& p);
+
+    /**
+    * Called the product request is successful, usually developers use product request to update the latest info(title, price) from IAP
+    */
+    void onProductRequestSuccess(const std::vector<sdkbox::Product>& products);
+
+    /**
+    * Called when the product request fails
+    */
+    void onProductRequestFailure(const std::string& msg);
+    
+    /**
+        * Called when the restore completed
+        */
+    void onRestoreComplete(bool ok, const std::string& msg);  
 };
