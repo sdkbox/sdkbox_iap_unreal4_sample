@@ -1,0 +1,3 @@
+[submodule "Plugins/Chartboost"]
+	path = Plugins/Chartboost
+	url = https://github.com/getsetgames/Chartboost.git
