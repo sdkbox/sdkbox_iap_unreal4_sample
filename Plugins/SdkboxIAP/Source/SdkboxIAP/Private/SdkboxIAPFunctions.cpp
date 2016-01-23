@@ -32,7 +32,15 @@ void USdkboxIAPFunctions::SdkboxIapInitialize(FString jsonstring)
         sdkbox::IAP::setListener(_listener);    
     }
     
-    const char* s = (const char*)TCHAR_TO_ANSI(*jsonstring);
+    const char* s = (const char*)TCHAR_TO_UTF8(*jsonstring);
+    if (s)
+    {
+        printf("got a string %s\n", s);
+    }
+    else
+    {
+        printf("wtf jsonstring is NULL\n");
+    }
     sdkbox::IAP::init(s);
 #endif
 }

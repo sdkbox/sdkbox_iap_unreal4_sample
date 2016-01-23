@@ -33,13 +33,22 @@ public:
     void OnUnregister() override;
     
     DECLARE_MULTICAST_DELEGATE_OneParam(FBoolDelegate, bool);
-   	static FBoolDelegate OnInitializedDelegate;
+   	DECLARE_MULTICAST_DELEGATE_OneParam(FProductDelegate, const USdkboxIAPProduct&);
+    DECLARE_MULTICAST_DELEGATE_TwoParam(FProductStringDelegate, const USdkboxIAPProduct&, const FString&);   
+       
+    static FBoolDelegate OnInitializedDelegate;
     
     DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FBoolDynDelegate, bool, Status);
+    DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FProductDynDelegate, const USdkboxIAPProduct&, Product);
+    
     UPROPERTY(BlueprintAssignable)
     FBoolDynDelegate OnInitialized;
+    
+    UPROPERTY(BlueprintAssignable)
+    FProductDynDelegate OnSuccess;
     
 protected:
 
 	void OnInitializedDelegate_Handler(bool result) { OnInitialized.Broadcast(result); }
+    void OnSuccessDelegate_Handler(const USdkboxIAPProduct& product) { OnSuccess.Broadcast(product); }
 };

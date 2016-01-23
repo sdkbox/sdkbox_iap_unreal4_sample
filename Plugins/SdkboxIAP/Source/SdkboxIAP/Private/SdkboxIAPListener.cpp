@@ -33,7 +33,8 @@ void SdkboxIAPListener::onInitialized(bool success)
 */
 void SdkboxIAPListener::onSuccess(const sdkbox::Product& p)
 {
-    
+    SdkboxIAPProduct product(p);
+    USdkboxIAPComponent::OnSuccessDelegate.Broadcast(product);
 }
 
 /**

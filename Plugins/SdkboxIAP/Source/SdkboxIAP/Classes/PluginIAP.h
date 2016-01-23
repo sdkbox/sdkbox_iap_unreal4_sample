@@ -1,6 +1,6 @@
 /****************************************************************************
 
- Copyright (c) 2014-2015 Chukong Technologies
+ Copyright (c) 2014-2015 SDKBOX Inc
 
  ****************************************************************************/
 
@@ -41,7 +41,7 @@ namespace sdkbox
 
         // Localized price
         std::string price;
-        
+
         // price currency code
         std::string currencyCode;
 
@@ -93,7 +93,7 @@ namespace sdkbox
         * Called when the product request fails
         */
         virtual void onProductRequestFailure(const std::string& msg) = 0;
-        
+
         /**
          * Called when the restore completed
          */
@@ -114,6 +114,11 @@ namespace sdkbox
         * Enable/disable debug logging
         */
         static void setDebug(bool debug);
+
+        /**
+        * Get all the products
+        */
+        static std::vector<Product> getProducts();
 
         /**
         * Make a purchase request

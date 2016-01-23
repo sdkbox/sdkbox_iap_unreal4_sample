@@ -21,6 +21,11 @@
 
 #include "SdkboxIAPProduct.generated.h"
 
+namespace sdkbox
+{
+    class Product;
+}
+
 UCLASS(ClassGroup=SDKBOX, HideCategories=(Activation, "Components|Activation", Collision))
 class USdkboxIAPProduct
     : public UObject
@@ -30,6 +35,7 @@ class USdkboxIAPProduct
 public:
   
 	USdkboxIAPProduct(const FObjectInitializer& ObjectInitializer);    
+    USdkboxIAPProduct(const sdkbox::Product& product);
     
     // The name of the product
     UPROPERTY(BlueprintReadOnly, Category=General, meta=(DisplayName="Name"))

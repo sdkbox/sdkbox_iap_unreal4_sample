@@ -21,12 +21,14 @@
 #include "SdkboxIAPListener.h"
 
 USdkboxIAPComponent::FBoolDelegate USdkboxIAPComponent::OnInitializedDelegate;
+USdkboxIAPComponent::FProductDelegate USdkboxIAPComponent::OnSuccessDelegate;
 
 void USdkboxIAPComponent::OnRegister()
 {
 	Super::OnRegister();
     
 	USdkboxIAPComponent::OnInitializedDelegate.AddUObject(this, &USdkboxIAPComponent::OnInitializedDelegate_Handler);
+    USdkboxIAPComponent::OnSuccessDelegate.AddUObject(this, &USdkboxIAPComponent::OnSuccessDelegate_Handler);
 }
 
 void USdkboxIAPComponent::OnUnregister()
@@ -34,5 +36,6 @@ void USdkboxIAPComponent::OnUnregister()
 	Super::OnUnregister();
         
 	USdkboxIAPComponent::OnInitializedDelegate.RemoveAll(this);
+    USdkboxIAPComponent::OnSuccessDelegate.RemoveAll(this);
 }
 

@@ -24,3 +24,17 @@ USdkboxIAPProduct::USdkboxIAPProduct(const FObjectInitializer& ObjectInitializer
     : Super(ObjectInitializer)
 {
 }
+
+USdkboxIAPProduct::USdkboxIAPProduct(const sdkbox::Product& product)
+    : Name(product.name)
+    , Id(product.id)
+    , Consumable(product.consumable == sdkbox::CONSUMABLE ? true : false)
+    , Title(product.title)
+    , Description(product.description)
+    , PriceValue(product.priceValue)
+    , Price(product.price)
+    , CurrencyCode(product.currencyCode)
+    , ReceiptCipheredPayload(product.receiptCipheredPayload)
+    , Receipt(product.receipt)
+{
+}
