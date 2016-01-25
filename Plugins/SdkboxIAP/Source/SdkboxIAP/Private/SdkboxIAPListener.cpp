@@ -19,6 +19,7 @@
 
 #include "SdkboxIAPPrivatePCH.h"
 #include "SdkboxIAPListener.h"
+#include "SdkboxIAPProduct.h"
 
 /**
 * Called when IAP initialized
@@ -33,8 +34,9 @@ void USdkboxIAPListener::onInitialized(bool success)
 */
 void USdkboxIAPListener::onSuccess(const sdkbox::Product& p)
 {
-    USdkboxIAPProduct product(p);
-    USdkboxIAPComponent::OnSuccessDelegate.Broadcast(&product);
+    auto product = USdkboxIAPProduct::ProductFromSdkboxProduct(p);
+    USdkboxIAPComponent::OnSuccessDelegate.Broadcast(product);
+    product->ConditionalBeginDestroy();
 }
 
 /**

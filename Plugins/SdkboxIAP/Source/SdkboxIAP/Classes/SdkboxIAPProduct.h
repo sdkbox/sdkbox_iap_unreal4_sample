@@ -34,8 +34,9 @@ class USdkboxIAPProduct
     
 public:
   
-	USdkboxIAPProduct(const FObjectInitializer& ObjectInitializer);    
-    USdkboxIAPProduct(const sdkbox::Product& product);
+	USdkboxIAPProduct(const FObjectInitializer& ObjectInitializer);
+        
+    static USdkboxIAPProduct* ProductFromSdkboxProduct(const sdkbox::Product& product);
     
     // The name of the product
     UPROPERTY(BlueprintReadOnly, Category=General, meta=(DisplayName="Name"))

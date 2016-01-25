@@ -26,16 +26,18 @@ USdkboxIAPProduct::USdkboxIAPProduct(const FObjectInitializer& ObjectInitializer
 {
 }
 
-USdkboxIAPProduct::USdkboxIAPProduct(const sdkbox::Product& product)
-    : Name(product.name.c_str())
-    , Id(product.id.c_str())
-    , Consumable(product.type == sdkbox::CONSUMABLE ? true : false)
-    , Title(product.title.c_str())
-    , Description(product.description.c_str())
-    , PriceValue(product.priceValue)
-    , Price(product.price.c_str())
-    , CurrencyCode(product.currencyCode.c_str())
-    , ReceiptCipheredPayload(product.receiptCipheredPayload.c_str())
-    , Receipt(product.receipt.c_str())
+USdkboxIAPProduct* USdkboxIAPProduct::ProductFromSdkboxProduct(const sdkbox::Product& product)
 {
+    auto p = NewObject<USdkboxIAPProduct>(USdkboxIAPProduct::StaticClass());
+    p->Name         = product.name.c_str();
+    p->Id           = product.id.c_str();
+    p->Consumable   = product.type == sdkbox::CONSUMABLE ? true : false;
+    p->Title        = product.title.c_str();
+    p->Description  = product.description.c_str();
+    p->PriceValue   = product.priceValue;
+    p->Price        = product.price.c_str();
+    p->CurrencyCode = product.currencyCode.c_str();
+    p->ReceiptCipheredPayload = product.receiptCipheredPayload.c_str();
+    p->Receipt      = product.receipt.c_str();
+    return p;
 }
