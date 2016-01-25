@@ -22,24 +22,30 @@
 #include "SdkboxIAPFunctions.h"
 #include "SdkboxIAPComponent.generated.h"
 
+class USdkboxIAPListener;
+
 UCLASS(ClassGroup=SDKBOX, HideCategories=(Activation, "Components|Activation", Collision), meta=(BlueprintSpawnableComponent))
-class USdkboxIAPComponent : public UActorComponent
+class USdkboxIAPComponent
+    : public UActorComponent
 {
 	GENERATED_BODY()
 	
 public:
     
+    USdkboxIAPComponent(const FObjectInitializer& ObjectInitializer);
+    
     void OnRegister() override;
     void OnUnregister() override;
     
     DECLARE_MULTICAST_DELEGATE_OneParam(FBoolDelegate, bool);
-   	DECLARE_MULTICAST_DELEGATE_OneParam(FProductDelegate, const USdkboxIAPProduct&);
-    DECLARE_MULTICAST_DELEGATE_TwoParam(FProductStringDelegate, const USdkboxIAPProduct&, const FString&);   
+   	DECLARE_MULTICAST_DELEGATE_OneParam(FProductDelegate, const USdkboxIAPProduct*);
+    //DECLARE_MULTICAST_DELEGATE_TwoParam(FProductStringDelegate, const USdkboxIAPProduct*, const FString*);
        
     static FBoolDelegate OnInitializedDelegate;
+    static FProductDelegate OnSuccessDelegate;
     
     DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FBoolDynDelegate, bool, Status);
-    DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FProductDynDelegate, const USdkboxIAPProduct&, Product);
+    DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FProductDynDelegate, const USdkboxIAPProduct*, Product);
     
     UPROPERTY(BlueprintAssignable)
     FBoolDynDelegate OnInitialized;
@@ -50,5 +56,5 @@ public:
 protected:
 
 	void OnInitializedDelegate_Handler(bool result) { OnInitialized.Broadcast(result); }
-    void OnSuccessDelegate_Handler(const USdkboxIAPProduct& product) { OnSuccess.Broadcast(product); }
+    void OnSuccessDelegate_Handler(const USdkboxIAPProduct* product) { OnSuccess.Broadcast(product); }
 };

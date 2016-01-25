@@ -19,6 +19,7 @@
 
 #include "SdkboxIAPPrivatePCH.h"
 #include "SdkboxIAPProduct.h"
+#include "PluginIAP.h"
 
 USdkboxIAPProduct::USdkboxIAPProduct(const FObjectInitializer& ObjectInitializer)
     : Super(ObjectInitializer)
@@ -26,15 +27,15 @@ USdkboxIAPProduct::USdkboxIAPProduct(const FObjectInitializer& ObjectInitializer
 }
 
 USdkboxIAPProduct::USdkboxIAPProduct(const sdkbox::Product& product)
-    : Name(product.name)
-    , Id(product.id)
-    , Consumable(product.consumable == sdkbox::CONSUMABLE ? true : false)
-    , Title(product.title)
-    , Description(product.description)
+    : Name(product.name.c_str())
+    , Id(product.id.c_str())
+    , Consumable(product.type == sdkbox::CONSUMABLE ? true : false)
+    , Title(product.title.c_str())
+    , Description(product.description.c_str())
     , PriceValue(product.priceValue)
-    , Price(product.price)
-    , CurrencyCode(product.currencyCode)
-    , ReceiptCipheredPayload(product.receiptCipheredPayload)
-    , Receipt(product.receipt)
+    , Price(product.price.c_str())
+    , CurrencyCode(product.currencyCode.c_str())
+    , ReceiptCipheredPayload(product.receiptCipheredPayload.c_str())
+    , Receipt(product.receipt.c_str())
 {
 }

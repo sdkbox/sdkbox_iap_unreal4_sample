@@ -23,6 +23,11 @@
 USdkboxIAPComponent::FBoolDelegate USdkboxIAPComponent::OnInitializedDelegate;
 USdkboxIAPComponent::FProductDelegate USdkboxIAPComponent::OnSuccessDelegate;
 
+USdkboxIAPComponent::USdkboxIAPComponent(const FObjectInitializer& ObjectInitializer)
+    : Super(ObjectInitializer)
+{
+}
+
 void USdkboxIAPComponent::OnRegister()
 {
 	Super::OnRegister();
@@ -34,7 +39,7 @@ void USdkboxIAPComponent::OnRegister()
 void USdkboxIAPComponent::OnUnregister()
 {
 	Super::OnUnregister();
-        
+  
 	USdkboxIAPComponent::OnInitializedDelegate.RemoveAll(this);
     USdkboxIAPComponent::OnSuccessDelegate.RemoveAll(this);
 }

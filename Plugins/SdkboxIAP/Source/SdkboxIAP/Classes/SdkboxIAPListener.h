@@ -20,10 +20,18 @@
 #pragma once
 
 #include "PluginIAP.h"
+#include "SdkboxIAPListener.generated.h"
 
-class SdkboxIAPListener
-    : public sdkbox::IAPListener
+// UE4 HeaderTool fails to parse the namespace properly, so...
+struct UListener : public sdkbox::IAPListener {};
+
+UCLASS(NotBlueprintable)
+class USdkboxIAPListener 
+    : public UObject
+    , public UListener
 {
+	GENERATED_BODY()
+    
 public:
 
     /**

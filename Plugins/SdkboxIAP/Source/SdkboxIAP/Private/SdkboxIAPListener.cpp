@@ -23,7 +23,7 @@
 /**
 * Called when IAP initialized
 */
-void SdkboxIAPListener::onInitialized(bool success)
+void USdkboxIAPListener::onInitialized(bool success)
 {
     USdkboxIAPComponent::OnInitializedDelegate.Broadcast(success);
 }
@@ -31,16 +31,16 @@ void SdkboxIAPListener::onInitialized(bool success)
 /**
 * Called when an IAP processed successfully
 */
-void SdkboxIAPListener::onSuccess(const sdkbox::Product& p)
+void USdkboxIAPListener::onSuccess(const sdkbox::Product& p)
 {
-    SdkboxIAPProduct product(p);
-    USdkboxIAPComponent::OnSuccessDelegate.Broadcast(product);
+    USdkboxIAPProduct product(p);
+    USdkboxIAPComponent::OnSuccessDelegate.Broadcast(&product);
 }
 
 /**
 * Called when an IAP fails
 */
-void SdkboxIAPListener::onFailure(const sdkbox::Product& p, const std::string& msg)
+void USdkboxIAPListener::onFailure(const sdkbox::Product& p, const std::string& msg)
 {
     
 }
@@ -48,7 +48,7 @@ void SdkboxIAPListener::onFailure(const sdkbox::Product& p, const std::string& m
 /**
 * Called when user canceled the IAP
 */
-void SdkboxIAPListener::onCanceled(const sdkbox::Product& p)
+void USdkboxIAPListener::onCanceled(const sdkbox::Product& p)
 {
     
 }
@@ -57,7 +57,7 @@ void SdkboxIAPListener::onCanceled(const sdkbox::Product& p)
 * Called when server returns the IAP items user already purchased
 * @note this callback will be called multiple times if there are multiple IAP
 */
-void SdkboxIAPListener::onRestored(const sdkbox::Product& p)
+void USdkboxIAPListener::onRestored(const sdkbox::Product& p)
 {
     
 }
@@ -65,7 +65,7 @@ void SdkboxIAPListener::onRestored(const sdkbox::Product& p)
 /**
 * Called the product request is successful, usually developers use product request to update the latest info(title, price) from IAP
 */
-void SdkboxIAPListener::onProductRequestSuccess(const std::vector<sdkbox::Product>& products)
+void USdkboxIAPListener::onProductRequestSuccess(const std::vector<sdkbox::Product>& products)
 {
     
 }
@@ -73,7 +73,7 @@ void SdkboxIAPListener::onProductRequestSuccess(const std::vector<sdkbox::Produc
 /**
 * Called when the product request fails
 */
-void SdkboxIAPListener::onProductRequestFailure(const std::string& msg)
+void USdkboxIAPListener::onProductRequestFailure(const std::string& msg)
 {
     
 }
@@ -81,7 +81,7 @@ void SdkboxIAPListener::onProductRequestFailure(const std::string& msg)
 /**
     * Called when the restore completed
     */
-void SdkboxIAPListener::onRestoreComplete(bool ok, const std::string& msg)
+void USdkboxIAPListener::onRestoreComplete(bool ok, const std::string& msg)
 {
     
 }

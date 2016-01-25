@@ -18,18 +18,18 @@
  ****************************************************************************/
 
 #include "SdkboxIAPPrivatePCH.h"
-#include "SdkboxIAPListener.h"
 #include "PluginIAP.h"
 
-SdkboxIAPListener* USdkboxIAPFunctions::_listener = nullptr;
+int USdkboxIAPFunctions::_initCount = 0;
+USdkboxIAPListener* USdkboxIAPFunctions::_listener = nullptr;
 
 void USdkboxIAPFunctions::SdkboxIapInitialize(FString jsonstring)
 {
 #if PLATFORM_IOS || PLATFORM_ANDROID
-    if (!_listener)
+    if (0 == _initCount && !_listener)
     {
-        _listener = new SdkboxIAPListener;
-        sdkbox::IAP::setListener(_listener);    
+        _listener = NewObject<USdkboxIAPListener>(USdkboxIAPListener::StaticClass());
+        sdkbox::IAP::setListener(_listener);
     }
     
     const char* s = (const char*)TCHAR_TO_UTF8(*jsonstring);
@@ -42,6 +42,17 @@ void USdkboxIAPFunctions::SdkboxIapInitialize(FString jsonstring)
         printf("wtf jsonstring is NULL\n");
     }
     sdkbox::IAP::init(s);
+#endif
+}
+
+void USdkboxIAPFunctions::SdkboxIapShutdown()
+{
+#if PLATFORM_IOS || PLATFORM_ANDROID
+    if (0 == _initCount && _listener && _listener->IsValidLowLevel())
+    {
+        _listener->ConditionalBeginDestroy();
+        _listener = nullptr;
+    }
 #endif
 }
 

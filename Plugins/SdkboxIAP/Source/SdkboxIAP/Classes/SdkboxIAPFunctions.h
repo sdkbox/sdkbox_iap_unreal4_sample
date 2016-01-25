@@ -20,7 +20,7 @@
 
 #include "SdkboxIAPFunctions.generated.h"
 
-class SdkboxIAPListener;
+class USdkboxIAPListener;
 
 UCLASS(NotBlueprintable)
 class USdkboxIAPFunctions 
@@ -32,7 +32,10 @@ public:
 
 	UFUNCTION(BlueprintCallable, meta = (Keywords = "SDKBOX iap"), Category = "SDKBOX")
 	static void SdkboxIapInitialize(FString jsonstring);
-	
+
+    UFUNCTION(BlueprintCallable, meta = (Keywords = "SDKBOX iap"), Category = "SDKBOX")
+    static void SdkboxIapShutdown();
+    
 	UFUNCTION(BlueprintCallable, meta = (Keywords = "SDKBOX iap"), Category = "SDKBOX")
 	static void SdkboxIapPurchase(FString product);
 	
@@ -41,8 +44,9 @@ public:
 
 	UFUNCTION(BlueprintCallable, meta = (Keywords = "SDKBOX iap"), Category = "SDKBOX")
 	static void SdkboxIapRestore();
-   
+    
 protected:
-
-    static SdkboxIAPListener* _listener;
+    
+    static int _initCount;
+    static USdkboxIAPListener* _listener;
 };

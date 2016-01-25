@@ -23,7 +23,7 @@
 
 namespace sdkbox
 {
-    class Product;
+    struct Product;
 }
 
 UCLASS(ClassGroup=SDKBOX, HideCategories=(Activation, "Components|Activation", Collision))
