@@ -44,7 +44,9 @@ void USdkboxIAPListener::onSuccess(const sdkbox::Product& p)
 */
 void USdkboxIAPListener::onFailure(const sdkbox::Product& p, const std::string& msg)
 {
-    
+    auto product = USdkboxIAPProduct::ProductFromSdkboxProduct(p);
+    USdkboxIAPComponent::OnFailureDelegate.Broadcast(product);
+    product->ConditionalBeginDestroy();    
 }
 
 /**
@@ -52,7 +54,9 @@ void USdkboxIAPListener::onFailure(const sdkbox::Product& p, const std::string& 
 */
 void USdkboxIAPListener::onCanceled(const sdkbox::Product& p)
 {
-    
+    auto product = USdkboxIAPProduct::ProductFromSdkboxProduct(p);
+    USdkboxIAPComponent::OnCanceledDelegate.Broadcast(product);
+    product->ConditionalBeginDestroy();
 }
 
 /**
@@ -61,7 +65,9 @@ void USdkboxIAPListener::onCanceled(const sdkbox::Product& p)
 */
 void USdkboxIAPListener::onRestored(const sdkbox::Product& p)
 {
-    
+    auto product = USdkboxIAPProduct::ProductFromSdkboxProduct(p);
+    USdkboxIAPComponent::OnRestoredDelegate.Broadcast(product);
+    product->ConditionalBeginDestroy();
 }
 
 /**
@@ -69,7 +75,18 @@ void USdkboxIAPListener::onRestored(const sdkbox::Product& p)
 */
 void USdkboxIAPListener::onProductRequestSuccess(const std::vector<sdkbox::Product>& products)
 {
+    TArray<TSubclassOf<USdkboxIAPProduct*>> productsArray;
+    for (auto p : products)
+    {
+        productsArray.Add(USdkboxIAPProduct::ProductFromSdkboxProduct(p));
+    }
     
+    USdkboxIAPComponent::OnProductRequesSuccessDelegate.Broadcast(productsArray);
+
+    for (auto i : productsArray)
+    {
+        i->ConditionalBeginDestroy();
+    }
 }
 
 /**
@@ -77,13 +94,13 @@ void USdkboxIAPListener::onProductRequestSuccess(const std::vector<sdkbox::Produ
 */
 void USdkboxIAPListener::onProductRequestFailure(const std::string& msg)
 {
-    
+    USdkboxIAPComponent::OnProductRequesFailureDelegate.Broadcast(msg.c_str());
 }
 
 /**
-    * Called when the restore completed
-    */
+ * Called when the restore completed
+ */
 void USdkboxIAPListener::onRestoreComplete(bool ok, const std::string& msg)
 {
-    
+    USdkboxIAPComponent::OnRestoreCompleteDelegate.Broadcast(ok, msg.c_str());  
 }

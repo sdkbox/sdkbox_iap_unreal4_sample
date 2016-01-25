@@ -31,8 +31,6 @@ class USdkboxIAPComponent
 	GENERATED_BODY()
 	
 public:
-    
-    //typedef TArray<TSubclassOf<USdkboxIAPProduct>> tProductArray;
             
     USdkboxIAPComponent(const FObjectInitializer& ObjectInitializer);
     
@@ -58,7 +56,7 @@ public:
     DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FBoolDynDelegate, bool, Status);
     DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FProductDynDelegate, const USdkboxIAPProduct*, Product);
     DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FProductStringDynDelegate, const USdkboxIAPProduct*, Product, const FString&, Message);
-    DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FProductArrayDynDelegate, const USdkboxIAPProduct*, Products);
+    DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FProductArrayDynDelegate, const TArray<TSubclassOf<USdkboxIAPProduct*> >*, Products);
    	DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FStringDynDelegate, const FString&, Message); 
     DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FBoolStringDynDelegate, bool, Status, const FString&, Message);
     
@@ -93,7 +91,7 @@ protected:
     void OnFailureDelegate_Handler(const USdkboxIAPProduct* product, const FString& message) { OnFailure.Broadcast(product, message); }
     void OnCanceledDelegate_Handler(const USdkboxIAPProduct* product) { OnCanceled.Broadcast(product); }
     void OnRestoredDelegate_Handler(const USdkboxIAPProduct* product) { OnRestored.Broadcast(product); }
-    void OnProductRequestSuccessDelegate_Handler(const USdkboxIAPProduct* productArray) { OnProductRequestSuccess.Broadcast(productArray); }
+    void OnProductRequestSuccessDelegate_Handler(const TArray<TSubclassOf<USdkboxIAPProduct*> >* productArray) { OnProductRequestSuccess.Broadcast(productArray); }
     void OnProductRequestFailureDelegate_Handler(const USdkboxIAPProduct* product, const FString& message) { OnProductRequestFailure.Broadcast(product, message); }
     void OnRestoreCompleteDelegate_Handler(bool status, const FString& message) { OnRestoreComplete.Broadcast(status, message); }
 };
