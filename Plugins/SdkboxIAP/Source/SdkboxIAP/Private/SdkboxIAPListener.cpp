@@ -45,7 +45,7 @@ void USdkboxIAPListener::onSuccess(const sdkbox::Product& p)
 void USdkboxIAPListener::onFailure(const sdkbox::Product& p, const std::string& msg)
 {
     auto product = USdkboxIAPProduct::ProductFromSdkboxProduct(p);
-    USdkboxIAPComponent::OnFailureDelegate.Broadcast(product);
+    USdkboxIAPComponent::OnFailureDelegate.Broadcast(product, msg.c_str());
     product->ConditionalBeginDestroy();    
 }
 
@@ -75,13 +75,13 @@ void USdkboxIAPListener::onRestored(const sdkbox::Product& p)
 */
 void USdkboxIAPListener::onProductRequestSuccess(const std::vector<sdkbox::Product>& products)
 {
-    TArray<TSubclassOf<USdkboxIAPProduct*>> productsArray;
+    TArray<USdkboxIAPProduct*> productsArray;
     for (auto p : products)
     {
         productsArray.Add(USdkboxIAPProduct::ProductFromSdkboxProduct(p));
     }
     
-    USdkboxIAPComponent::OnProductRequesSuccessDelegate.Broadcast(productsArray);
+    USdkboxIAPComponent::OnProductRequestSuccessDelegate.Broadcast(productsArray);
 
     for (auto i : productsArray)
     {
@@ -94,7 +94,7 @@ void USdkboxIAPListener::onProductRequestSuccess(const std::vector<sdkbox::Produ
 */
 void USdkboxIAPListener::onProductRequestFailure(const std::string& msg)
 {
-    USdkboxIAPComponent::OnProductRequesFailureDelegate.Broadcast(msg.c_str());
+    USdkboxIAPComponent::OnProductRequestFailureDelegate.Broadcast(msg.c_str());
 }
 
 /**

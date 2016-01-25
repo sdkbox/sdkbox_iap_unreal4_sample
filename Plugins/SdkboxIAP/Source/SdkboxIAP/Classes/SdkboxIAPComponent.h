@@ -40,7 +40,7 @@ public:
     DECLARE_MULTICAST_DELEGATE_OneParam(FBoolDelegate, bool);
    	DECLARE_MULTICAST_DELEGATE_OneParam(FProductDelegate, const USdkboxIAPProduct*);
     DECLARE_MULTICAST_DELEGATE_TwoParams(FProductStringDelegate, const USdkboxIAPProduct*, const FString&);
-    DECLARE_MULTICAST_DELEGATE_OneParam(FProductArrayDelegate, const USdkboxIAPProduct*);
+    DECLARE_MULTICAST_DELEGATE_OneParam(FProductArrayDelegate, const TArray<USdkboxIAPProduct*>&);
    	DECLARE_MULTICAST_DELEGATE_OneParam(FStringDelegate, const FString&); 
     DECLARE_MULTICAST_DELEGATE_TwoParams(FBoolStringDelegate, bool, const FString&);
      
@@ -50,13 +50,13 @@ public:
     static FProductDelegate       OnCanceledDelegate;
     static FProductDelegate       OnRestoredDelegate;
     static FProductArrayDelegate  OnProductRequestSuccessDelegate;
-    static FProductStringDelegate OnProductRequestFailureDelegate;
+    static FStringDelegate        OnProductRequestFailureDelegate;
     static FBoolStringDelegate    OnRestoreCompleteDelegate;
     
     DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FBoolDynDelegate, bool, Status);
     DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FProductDynDelegate, const USdkboxIAPProduct*, Product);
     DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FProductStringDynDelegate, const USdkboxIAPProduct*, Product, const FString&, Message);
-    DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FProductArrayDynDelegate, const TArray<TSubclassOf<USdkboxIAPProduct*> >*, Products);
+    DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FProductArrayDynDelegate, const TArray<USdkboxIAPProduct*>&, Products);
    	DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FStringDynDelegate, const FString&, Message); 
     DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FBoolStringDynDelegate, bool, Status, const FString&, Message);
     
@@ -79,7 +79,7 @@ public:
     FProductArrayDynDelegate OnProductRequestSuccess;
     
     UPROPERTY(BlueprintAssignable)
-    FProductStringDynDelegate OnProductRequestFailure;
+    FStringDynDelegate OnProductRequestFailure;
     
     UPROPERTY(BlueprintAssignable)
     FBoolStringDynDelegate OnRestoreComplete;
@@ -91,7 +91,7 @@ protected:
     void OnFailureDelegate_Handler(const USdkboxIAPProduct* product, const FString& message) { OnFailure.Broadcast(product, message); }
     void OnCanceledDelegate_Handler(const USdkboxIAPProduct* product) { OnCanceled.Broadcast(product); }
     void OnRestoredDelegate_Handler(const USdkboxIAPProduct* product) { OnRestored.Broadcast(product); }
-    void OnProductRequestSuccessDelegate_Handler(const TArray<TSubclassOf<USdkboxIAPProduct*> >* productArray) { OnProductRequestSuccess.Broadcast(productArray); }
-    void OnProductRequestFailureDelegate_Handler(const USdkboxIAPProduct* product, const FString& message) { OnProductRequestFailure.Broadcast(product, message); }
+    void OnProductRequestSuccessDelegate_Handler(const TArray<USdkboxIAPProduct*>& productArray) { OnProductRequestSuccess.Broadcast(productArray); }
+    void OnProductRequestFailureDelegate_Handler(const FString& message) { OnProductRequestFailure.Broadcast(message); }
     void OnRestoreCompleteDelegate_Handler(bool status, const FString& message) { OnRestoreComplete.Broadcast(status, message); }
 };

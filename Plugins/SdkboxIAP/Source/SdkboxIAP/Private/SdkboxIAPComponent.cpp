@@ -26,7 +26,7 @@ USdkboxIAPComponent::FProductStringDelegate USdkboxIAPComponent::OnFailureDelega
 USdkboxIAPComponent::FProductDelegate       USdkboxIAPComponent::OnCanceledDelegate;
 USdkboxIAPComponent::FProductDelegate       USdkboxIAPComponent::OnRestoredDelegate;
 USdkboxIAPComponent::FProductArrayDelegate  USdkboxIAPComponent::OnProductRequestSuccessDelegate;
-USdkboxIAPComponent::FProductStringDelegate USdkboxIAPComponent::OnProductRequestFailureDelegate;
+USdkboxIAPComponent::FStringDelegate        USdkboxIAPComponent::OnProductRequestFailureDelegate;
 USdkboxIAPComponent::FBoolStringDelegate    USdkboxIAPComponent::OnRestoreCompleteDelegate;
 
 USdkboxIAPComponent::USdkboxIAPComponent(const FObjectInitializer& ObjectInitializer)
