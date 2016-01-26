@@ -47,7 +47,7 @@ public:
     FString Id;
 
     // Type of iap item true if consumable
-    UPROPERTY(BlueprintReadOnly, Category=General, meta=(DisplayName="Type"))
+    UPROPERTY(BlueprintReadOnly, Category=General, meta=(DisplayName="Consumable"))
     bool Consumable;
 
     // The title of the IAP item

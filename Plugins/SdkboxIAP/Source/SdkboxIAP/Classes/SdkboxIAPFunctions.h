@@ -18,6 +18,7 @@
  ****************************************************************************/
 #pragma once
 
+#include "SdkboxIAPProductDescription.h"
 #include "SdkboxIAPFunctions.generated.h"
 
 class USdkboxIAPListener;
@@ -44,6 +45,9 @@ public:
 
 	UFUNCTION(BlueprintCallable, meta = (Keywords = "SDKBOX iap"), Category = "SDKBOX")
 	static void SdkboxIapRestore();
+    
+    UFUNCTION(BlueprintCallable, meta = (Keywords = "SDKBOX iap"), Category = "SDKBOX")
+	static FString SdkboxIAPJsonStringFromProductDescriptions(const TArray<FSdkboxIAPProductDescription>& Descriptions);
     
 protected:
     

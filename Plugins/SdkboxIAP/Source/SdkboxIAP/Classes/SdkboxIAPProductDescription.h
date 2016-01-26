@@ -17,10 +17,36 @@
  THE SOFTWARE.
  ****************************************************************************/
 
-#include "SdkboxIAPPrivatePCH.h"
-#include "SdkboxIAPSettings.h"
+#pragma once
 
-USdkboxIAPSettings::USdkboxIAPSettings(const FObjectInitializer& ObjectInitializer)
-    : Super(ObjectInitializer)
+#include "SdkboxIAPProductDescription.generated.h"
+
+UENUM(BlueprintType)
+enum class EProductAffinityEnum : uint8
 {
-}
+    PAE_ALL     UMETA(DisplayName="All"),
+    PAE_IOS     UMETA(DisplayName="iOS"),
+	PAE_ANDROID UMETA(DisplayName="Android")
+};
+
+USTRUCT(BlueprintType)
+struct FSdkboxIAPProductDescription
+{
+    GENERATED_USTRUCT_BODY()
+      
+    // The name of the product
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category=General, meta=(DisplayName="Name"))
+    FString Name;
+
+    // The product id of an In App Purchase
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category=General, meta=(DisplayName="Id"))
+    FString Id;
+
+    // Type of iap item true if consumable
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category=General, meta=(DisplayName="Consumable"))
+    bool Consumable;
+    
+    // Which platform this product description is for
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category=General, meta=(DisplayName="Affinity"))
+    EProductAffinityEnum Affinity;
+};

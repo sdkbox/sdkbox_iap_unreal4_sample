@@ -32,16 +32,7 @@ void USdkboxIAPFunctions::SdkboxIapInitialize(FString jsonstring)
         sdkbox::IAP::setListener(_listener);
     }
     
-    const char* s = (const char*)TCHAR_TO_UTF8(*jsonstring);
-    if (s)
-    {
-        printf("got a string %s\n", s);
-    }
-    else
-    {
-        printf("wtf jsonstring is NULL\n");
-    }
-    sdkbox::IAP::init(s);
+    sdkbox::IAP::init(TCHAR_TO_ANSI(*jsonstring));
 #endif
 }
 
@@ -58,21 +49,66 @@ void USdkboxIAPFunctions::SdkboxIapShutdown()
 
 void USdkboxIAPFunctions::SdkboxIapPurchase(FString product) 
 {
-#if PLATFORM_IOS //|| PLATFORM_ANDROID    
-    sdkbox::IAP::purchase((const char*)TCHAR_TO_ANSI(*product));
+#if PLATFORM_IOS || PLATFORM_ANDROID   
+    std::string s(TCHAR_TO_ANSI(*product)); 
+    sdkbox::IAP::purchase(s);
 #endif
 }
 
 void USdkboxIAPFunctions::SdkboxIapRefresh() 
 {
-#if PLATFORM_IOS //|| PLATFORM_ANDROID        
+#if PLATFORM_IOS || PLATFORM_ANDROID        
     sdkbox::IAP::refresh();
 #endif
 }
 
 void USdkboxIAPFunctions::SdkboxIapRestore() 
 {
-#if PLATFORM_IOS //|| PLATFORM_ANDROID        
+#if PLATFORM_IOS || PLATFORM_ANDROID        
     sdkbox::IAP::restore();
 #endif
+}
+
+FString USdkboxIAPFunctions::SdkboxIAPJsonStringFromProductDescriptions(const TArray<FSdkboxIAPProductDescription>& Descriptions)
+{
+    // TSharedPtr<FJsonObject> jo    =  MakeShareable(new FJsonObject);
+    // TSharedPtr<FJsonObject> ios[] = {MakeShareable(new FJsonObject), MakeShareable(new FJsonObject), MakeShareable(new FJsonObject)};
+    // TSharedPtr<FJsonObject> drd[] = {MakeShareable(new FJsonObject), MakeShareable(new FJsonObject), MakeShareable(new FJsonObject)};
+    
+    // jo->SetObjectField("ios", ios[0]);
+    // ios[0]->SetObjectField("iap", ios[1]);
+    // ios[1]->SetObjectField("items", ios[2]);
+    
+    // jo->SetObjectField("android", drd[0]);
+    // drd[0]->SetObjectField("iap", drd[1]);
+    // drd[1]->SetObjectField("items", drd[2]);
+ 
+    // for (auto d : Descriptions)
+    // {
+    //     TSharedPtr<FJsonObject> item = MakeShareable(new FJsonObject);
+    //     item->SetStringField("type", d.Consumable ? "consumable" : "non_consumable");
+    //     item->SetStringField("id", d.Id);
+        
+    //     switch (d.Affinity)
+    //     {
+    //         case EProductAffinityEnum::PAE_IOS:
+    //             ios[2]->SetObjectField(d.Name, item);
+    //             break;
+    //         case EProductAffinityEnum::PAE_ANDROID:
+    //             drd[2]->SetObjectField(d.Name, item);
+    //             break;
+    //         case EProductAffinityEnum::PAE_ALL:
+    //         default:
+    //             ios[2]->SetObjectField(d.Name, item);
+    //             drd[2]->SetObjectField(d.Name, item);
+    //             break;
+    //     }
+    // }
+    
+    // FString OutputString;
+    // TSharedRef< TJsonWriter<> > Writer = TJsonWriterFactory<>::Create(&OutputString);
+    // FJsonSerializer::Serialize(jo.ToSharedRef(), Writer);
+    
+    // return OutputString;
+    return "";
 }
