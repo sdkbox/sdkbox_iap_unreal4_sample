@@ -20,10 +20,6 @@
 #include "SdkboxIAPPrivatePCH.h"
 #include "PluginIAP.h"
 
-#if PLATFORM_ANDROID
-    extern "C" void sdkbox_IAP_purchase(const char*);
-#endif
-    
 USdkboxIAPListener* USdkboxIAPFunctions::_listener = nullptr;
 
 void USdkboxIAPFunctions::SdkboxIapInitialize(FString jsonstring)
@@ -52,12 +48,9 @@ void USdkboxIAPFunctions::SdkboxIapShutdown()
 
 void USdkboxIAPFunctions::SdkboxIapPurchase(FString product) 
 {
-#if PLATFORM_IOS   
+#if PLATFORM_IOS || PLATFORM_ANDROID 
     std::string s(TCHAR_TO_ANSI(*product)); 
     sdkbox::IAP::purchase(s);
-#elif PLATFORM_ANDROID
-    // UE4 android has some issues with std::string
-    sdkbox_IAP_purchase(TCHAR_TO_ANSI(*product));
 #endif
 }
 
@@ -77,44 +70,43 @@ void USdkboxIAPFunctions::SdkboxIapRestore()
 
 FString USdkboxIAPFunctions::SdkboxIAPJsonStringFromProductDescriptions(const TArray<FSdkboxIAPProductDescription>& Descriptions)
 {
-    // TSharedPtr<FJsonObject> jo    =  MakeShareable(new FJsonObject);
-    // TSharedPtr<FJsonObject> ios[] = {MakeShareable(new FJsonObject), MakeShareable(new FJsonObject), MakeShareable(new FJsonObject)};
-    // TSharedPtr<FJsonObject> drd[] = {MakeShareable(new FJsonObject), MakeShareable(new FJsonObject), MakeShareable(new FJsonObject)};
+    TSharedPtr<FJsonObject> jo    =  MakeShareable(new FJsonObject);
+    TSharedPtr<FJsonObject> ios[] = {MakeShareable(new FJsonObject), MakeShareable(new FJsonObject), MakeShareable(new FJsonObject)};
+    TSharedPtr<FJsonObject> drd[] = {MakeShareable(new FJsonObject), MakeShareable(new FJsonObject), MakeShareable(new FJsonObject)};
     
-    // jo->SetObjectField("ios", ios[0]);
-    // ios[0]->SetObjectField("iap", ios[1]);
-    // ios[1]->SetObjectField("items", ios[2]);
+    jo->SetObjectField("ios", ios[0]);
+    ios[0]->SetObjectField("iap", ios[1]);
+    ios[1]->SetObjectField("items", ios[2]);
     
-    // jo->SetObjectField("android", drd[0]);
-    // drd[0]->SetObjectField("iap", drd[1]);
-    // drd[1]->SetObjectField("items", drd[2]);
+    jo->SetObjectField("android", drd[0]);
+    drd[0]->SetObjectField("iap", drd[1]);
+    drd[1]->SetObjectField("items", drd[2]);
  
-    // for (auto d : Descriptions)
-    // {
-    //     TSharedPtr<FJsonObject> item = MakeShareable(new FJsonObject);
-    //     item->SetStringField("type", d.Consumable ? "consumable" : "non_consumable");
-    //     item->SetStringField("id", d.Id);
+    for (auto d : Descriptions)
+    {
+        TSharedPtr<FJsonObject> item = MakeShareable(new FJsonObject);
+        item->SetStringField("type", d.Consumable ? "consumable" : "non_consumable");
+        item->SetStringField("id", d.Id);
         
-    //     switch (d.Affinity)
-    //     {
-    //         case EProductAffinityEnum::PAE_IOS:
-    //             ios[2]->SetObjectField(d.Name, item);
-    //             break;
-    //         case EProductAffinityEnum::PAE_ANDROID:
-    //             drd[2]->SetObjectField(d.Name, item);
-    //             break;
-    //         case EProductAffinityEnum::PAE_ALL:
-    //         default:
-    //             ios[2]->SetObjectField(d.Name, item);
-    //             drd[2]->SetObjectField(d.Name, item);
-    //             break;
-    //     }
-    // }
+        switch (d.Affinity)
+        {
+            case EProductAffinityEnum::PAE_IOS:
+                ios[2]->SetObjectField(d.Name, item);
+                break;
+            case EProductAffinityEnum::PAE_ANDROID:
+                drd[2]->SetObjectField(d.Name, item);
+                break;
+            case EProductAffinityEnum::PAE_ALL:
+            default:
+                ios[2]->SetObjectField(d.Name, item);
+                drd[2]->SetObjectField(d.Name, item);
+                break;
+        }
+    }
     
-    // FString OutputString;
-    // TSharedRef< TJsonWriter<> > Writer = TJsonWriterFactory<>::Create(&OutputString);
-    // FJsonSerializer::Serialize(jo.ToSharedRef(), Writer);
+    FString OutputString;
+    TSharedRef< TJsonWriter<> > Writer = TJsonWriterFactory<>::Create(&OutputString);
+    FJsonSerializer::Serialize(jo.ToSharedRef(), Writer);
     
-    // return OutputString;
-    return "";
+    return OutputString;
 }
