@@ -20,13 +20,16 @@
 #include "SdkboxIAPPrivatePCH.h"
 #include "PluginIAP.h"
 
-int USdkboxIAPFunctions::_initCount = 0;
+#if PLATFORM_ANDROID
+    extern "C" void sdkbox_IAP_purchase(const char*);
+#endif
+    
 USdkboxIAPListener* USdkboxIAPFunctions::_listener = nullptr;
 
 void USdkboxIAPFunctions::SdkboxIapInitialize(FString jsonstring)
 {
 #if PLATFORM_IOS || PLATFORM_ANDROID
-    if (0 == _initCount && !_listener)
+    if (!_listener)
     {
         _listener = NewObject<USdkboxIAPListener>(USdkboxIAPListener::StaticClass());
         sdkbox::IAP::setListener(_listener);
@@ -39,7 +42,7 @@ void USdkboxIAPFunctions::SdkboxIapInitialize(FString jsonstring)
 void USdkboxIAPFunctions::SdkboxIapShutdown()
 {
 #if PLATFORM_IOS || PLATFORM_ANDROID
-    if (0 == _initCount && _listener && _listener->IsValidLowLevel())
+    if (_listener && _listener->IsValidLowLevel())
     {
         _listener->ConditionalBeginDestroy();
         _listener = nullptr;
@@ -49,9 +52,12 @@ void USdkboxIAPFunctions::SdkboxIapShutdown()
 
 void USdkboxIAPFunctions::SdkboxIapPurchase(FString product) 
 {
-#if PLATFORM_IOS || PLATFORM_ANDROID   
+#if PLATFORM_IOS   
     std::string s(TCHAR_TO_ANSI(*product)); 
     sdkbox::IAP::purchase(s);
+#elif PLATFORM_ANDROID
+    // UE4 android has some issues with std::string
+    sdkbox_IAP_purchase(TCHAR_TO_ANSI(*product));
 #endif
 }
 

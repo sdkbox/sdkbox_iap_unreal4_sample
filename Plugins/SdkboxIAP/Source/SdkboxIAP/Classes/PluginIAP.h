@@ -147,10 +147,9 @@ namespace sdkbox
         */
         static void removeListener();
 
-        /**
-        * Enable client side receipt verification for IAP
-        */
+
         static void enableUserSideVerification( bool );
+
     };
 }
 

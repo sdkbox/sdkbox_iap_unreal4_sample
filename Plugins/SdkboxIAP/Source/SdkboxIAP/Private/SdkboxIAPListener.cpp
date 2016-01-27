@@ -45,7 +45,7 @@ void USdkboxIAPListener::onSuccess(const sdkbox::Product& p)
 void USdkboxIAPListener::onFailure(const sdkbox::Product& p, const std::string& msg)
 {
     auto product = USdkboxIAPProduct::ProductFromSdkboxProduct(p);
-    USdkboxIAPComponent::OnFailureDelegate.Broadcast(product, msg.c_str());
+    USdkboxIAPComponent::OnFailureDelegate.Broadcast(product, "Doh!");//msg.c_str());
     product->ConditionalBeginDestroy();    
 }
 
