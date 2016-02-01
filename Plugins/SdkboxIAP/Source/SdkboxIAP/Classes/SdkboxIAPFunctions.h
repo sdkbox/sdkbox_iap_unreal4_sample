@@ -47,7 +47,10 @@ public:
 	static void SdkboxIapRestore();
     
     UFUNCTION(BlueprintCallable, meta = (Keywords = "SDKBOX iap"), Category = "SDKBOX")
-	static FString SdkboxIAPJsonStringFromProductDescriptions(const TArray<FSdkboxIAPProductDescription>& Descriptions);
+	static FString SdkboxIapJsonStringFromProductDescriptions(const TArray<FSdkboxIAPProductDescription>& Descriptions);
+    
+    UFUNCTION(BlueprintCallable, meta = (Keywords = "SDKBOX iap"), Category = "SDKBOX")
+    static void SdkboxIapEnableUserSideVerification(bool enable);
     
 protected:
     

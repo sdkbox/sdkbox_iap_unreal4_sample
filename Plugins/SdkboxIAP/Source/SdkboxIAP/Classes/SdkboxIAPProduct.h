@@ -26,7 +26,7 @@ namespace sdkbox
     struct Product;
 }
 
-UCLASS(ClassGroup=SDKBOX, HideCategories=(Activation, "Components|Activation", Collision), meta=(BlueprintSpawnableComponent))
+UCLASS(ClassGroup=SDKBOX, meta=(BlueprintSpawnableComponent))
 class USdkboxIAPProduct
     : public UObject
 {

@@ -68,7 +68,7 @@ void USdkboxIAPFunctions::SdkboxIapRestore()
 #endif
 }
 
-FString USdkboxIAPFunctions::SdkboxIAPJsonStringFromProductDescriptions(const TArray<FSdkboxIAPProductDescription>& Descriptions)
+FString USdkboxIAPFunctions::SdkboxIapJsonStringFromProductDescriptions(const TArray<FSdkboxIAPProductDescription>& Descriptions)
 {
 #if PLATFORM_IOS || PLATFORM_ANDROID            
     TSharedPtr<FJsonObject> jo    =  MakeShareable(new FJsonObject);
@@ -113,4 +113,11 @@ FString USdkboxIAPFunctions::SdkboxIAPJsonStringFromProductDescriptions(const TA
 #else
     return "";
 #endif
+}
+
+void USdkboxIAPFunctions::SdkboxIapEnableUserSideVerification(bool enabled)
+{
+#if PLATFORM_IOS || PLATFORM_ANDROID        
+    sdkbox::IAP::enableUserSideVerification(enabled);
+#endif    
 }
