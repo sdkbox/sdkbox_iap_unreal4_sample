@@ -12,6 +12,7 @@
   
   <gameActivityImportAdditions>
     <insert>
+      import android.content.Intent;
       import com.sdkbox.plugin.SDKBox;
     </insert>
   </gameActivityImportAdditions>
@@ -21,5 +22,12 @@
       SDKBox.init(this);
     </insert>
   </gameActivityOnCreateAdditions>
+  
+  <gameActivityOnActivityResultAdditions>
+    <insert>
+      if (!SDKBox.onActivityResult(requestCode, resultCode, data))
+          super.onActivityResult(requestCode, resultCode, data);
+    </insert>
+  </gameActivityOnActivityResultAdditions>
 
 </root>

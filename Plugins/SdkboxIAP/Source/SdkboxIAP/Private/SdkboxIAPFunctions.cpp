@@ -70,6 +70,7 @@ void USdkboxIAPFunctions::SdkboxIapRestore()
 
 FString USdkboxIAPFunctions::SdkboxIAPJsonStringFromProductDescriptions(const TArray<FSdkboxIAPProductDescription>& Descriptions)
 {
+#if PLATFORM_IOS || PLATFORM_ANDROID            
     TSharedPtr<FJsonObject> jo    =  MakeShareable(new FJsonObject);
     TSharedPtr<FJsonObject> ios[] = {MakeShareable(new FJsonObject), MakeShareable(new FJsonObject), MakeShareable(new FJsonObject)};
     TSharedPtr<FJsonObject> drd[] = {MakeShareable(new FJsonObject), MakeShareable(new FJsonObject), MakeShareable(new FJsonObject)};
@@ -109,4 +110,7 @@ FString USdkboxIAPFunctions::SdkboxIAPJsonStringFromProductDescriptions(const TA
     FJsonSerializer::Serialize(jo.ToSharedRef(), Writer);
     
     return OutputString;
+#else
+    return "";
+#endif
 }

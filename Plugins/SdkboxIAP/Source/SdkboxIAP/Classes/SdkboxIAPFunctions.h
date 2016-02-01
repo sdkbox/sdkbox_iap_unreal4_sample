@@ -49,10 +49,6 @@ public:
     UFUNCTION(BlueprintCallable, meta = (Keywords = "SDKBOX iap"), Category = "SDKBOX")
 	static FString SdkboxIAPJsonStringFromProductDescriptions(const TArray<FSdkboxIAPProductDescription>& Descriptions);
     
-    // setDebug
-    // getProducts
-    // enableUserSideVerification
-    
 protected:
     
     static USdkboxIAPListener* _listener;
