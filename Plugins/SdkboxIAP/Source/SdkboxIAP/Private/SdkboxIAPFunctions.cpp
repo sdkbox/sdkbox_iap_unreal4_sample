@@ -68,7 +68,7 @@ void USdkboxIAPFunctions::SdkboxIapRestore()
 #endif
 }
 
-FString USdkboxIAPFunctions::SdkboxIapJsonStringFromProductDescriptions(const TArray<FSdkboxIAPProductDescription>& Descriptions)
+FString USdkboxIAPFunctions::SdkboxIapJsonStringFromProductDescriptions(const TArray<FSdkboxIAPProductDescription>& Descriptions, FString AndroidKey)
 {
 #if PLATFORM_IOS || PLATFORM_ANDROID            
     TSharedPtr<FJsonObject> jo    =  MakeShareable(new FJsonObject);
@@ -83,6 +83,8 @@ FString USdkboxIAPFunctions::SdkboxIapJsonStringFromProductDescriptions(const TA
     drd[0]->SetObjectField("iap", drd[1]);
     drd[1]->SetObjectField("items", drd[2]);
  
+    drd[1]->SetStringField("key", AndroidKey);
+    
     for (auto d : Descriptions)
     {
         TSharedPtr<FJsonObject> item = MakeShareable(new FJsonObject);

@@ -244,7 +244,50 @@ struct FSdkboxIAPProductDescription
 };
 ```
 
+<h3>JSON Configuration</h3>
 
+Here is an example of the JSON configuration. You will need to replace <put the product id for ios here> with the product id from your iTunes Connect or replace <put your googleplay key here> from your Google Play Console
+
+```
+"ios" :
+{
+    "iap":{
+        "items":{
+            "remove_ads":{
+                "id":"<put the product id for ios here>"
+            }
+        }
+    }
+},
+"android":
+{
+    "iap":{
+        "key":"<put your googleplay key here>",
+        "items":{
+          "remove_ads":{
+              "id":"<put the product id for android here>"
+          }
+        }
+    }
+}
+```
+
+If you have products that are non-consumable, it is also necessary to supply this for each item. Only Android requires this step. Taking the same json above your config might now look like this example:
+
+```
+"android":
+{
+    "iap":{
+        "key":"<put your googleplay key here>",
+        "items":{
+          "remove_ads":{
+              "id":"<put the product id for android here>",
+              "type":"non_consumable"
+          }
+        }
+    }
+}
+```
 
 
 

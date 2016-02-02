@@ -8,12 +8,15 @@
   <resourceCopies>
     <copyFile src="$S(PluginDir)/../../lib/Android/sdkbox.jar"           dst="$S(BuildDir)/libs/sdkbox.jar" />
     <copyFile src="$S(PluginDir)/../../lib/Android/PluginIAP.jar"        dst="$S(BuildDir)/libs/PluginIAP.jar" />
+    <copyFile src="$S(PluginDir)/../../lib/Android/PluginGooglePlay.jar" dst="$S(BuildDir)/libs/PluginGooglePlay.jar" />
+    <copyFile src="$S(PluginDir)/../../ProguardAdditions.txt"            dst="$S(BuildDir)/../../../Build/Android/ProguardAdditions.txt" />
   </resourceCopies>
   
   <gameActivityImportAdditions>
     <insert>
       import android.content.Intent;
       import com.sdkbox.plugin.SDKBox;
+      import com.sdkbox.plugin.SDKBoxIAPGooglePlay;
     </insert>
   </gameActivityImportAdditions>
     
@@ -23,11 +26,42 @@
     </insert>
   </gameActivityOnCreateAdditions>
   
+  <gameActivityOnStartAdditions>
+    <insert>
+      SDKBox.onStart();
+    </insert>
+  </gameActivityOnStartAdditions>
+
+  <gameActivityOnStopAdditions>
+    <insert>
+      SDKBox.onStop();
+    </insert>
+  </gameActivityOnStopAdditions>
+
+  <gameActivityOnPauseAdditions>
+    <insert>
+      SDKBox.onPause();
+    </insert>
+  </gameActivityOnPauseAdditions>
+
+  <gameActivityOnResumeAdditions>
+    <insert>
+      SDKBox.onResume();
+    </insert>
+  </gameActivityOnResumeAdditions>
+  
   <gameActivityOnActivityResultAdditions>
     <insert>
       if (!SDKBox.onActivityResult(requestCode, resultCode, data))
           super.onActivityResult(requestCode, resultCode, data);
     </insert>
   </gameActivityOnActivityResultAdditions>
-
+  
+  <proguardAdditions>
+    <insert>
+      -keep public class com.sdkbox.** { *; }
+      -dontwarn com.sdkbox.**
+    </insert>
+  </proguardAdditions>
+  
 </root>
