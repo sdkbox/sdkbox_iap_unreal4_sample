@@ -1,0 +1,23 @@
+{
+	"FileVersion": 3,
+	"Version": 1,
+	"VersionName": "1.0",
+	"FriendlyName": "Sdkbox",
+	"Description": "This plugin provides SDKBOX core functionality.",
+	"Category": "SDKBOX",
+	"CreatedBy": "SDKBOX Inc.",
+	"CreatedByURL": "http://sdkbox.com",
+	"DocsURL": "",
+	"MarketplaceURL": "",
+	"Modules": [
+		{
+			"Name": "Sdkbox",
+			"Type": "Runtime",
+			"LoadingPhase": "Default"
+		}
+	],
+	"EnabledByDefault": false,
+	"CanContainContent": false,
+	"IsBetaVersion": false,
+	"Installed": false
+}
