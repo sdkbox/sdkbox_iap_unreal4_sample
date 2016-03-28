@@ -10,6 +10,9 @@
 SourceArt/**/*.png
 SourceArt/**/*.tga
 
+# editor files
+.idea/*
+
 # Binary Files
 Binaries/*
 
