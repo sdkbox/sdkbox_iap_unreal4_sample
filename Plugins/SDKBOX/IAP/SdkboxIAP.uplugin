@@ -2,7 +2,7 @@
 	"FileVersion": 3,
 	"Version": 1,
 	"VersionName": "1.0",
-	"FriendlyName": "SdkboxIAP",
+	"FriendlyName": "In App Purchase",
 	"Description": "This plugin provides SDKBOX In App Purchase functionality.",
 	"Category": "SDKBOX",
 	"CreatedBy": "SDKBOX Inc.",
