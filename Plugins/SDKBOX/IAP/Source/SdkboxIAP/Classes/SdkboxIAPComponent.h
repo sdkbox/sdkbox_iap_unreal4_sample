@@ -19,7 +19,8 @@
 
 #pragma once
 
-#include "SdkboxIAPFunctions.h"
+// #include "SdkboxIAPFunctions.h"
+#include "Runtime/Engine/Classes/Components/ActorComponent.h"
 #include "SdkboxIAPComponent.generated.h"
 
 class USdkboxIAPListener;
@@ -29,21 +30,21 @@ class USdkboxIAPComponent
     : public UActorComponent
 {
 	GENERATED_BODY()
-	
+
 public:
-            
+
     USdkboxIAPComponent(const FObjectInitializer& ObjectInitializer);
-    
+
     void OnRegister() override;
     void OnUnregister() override;
-    
+
     DECLARE_MULTICAST_DELEGATE_OneParam(FBoolDelegate, bool);
    	DECLARE_MULTICAST_DELEGATE_OneParam(FProductDelegate, const USdkboxIAPProduct*);
     DECLARE_MULTICAST_DELEGATE_TwoParams(FProductStringDelegate, const USdkboxIAPProduct*, const FString&);
     DECLARE_MULTICAST_DELEGATE_OneParam(FProductArrayDelegate, const TArray<USdkboxIAPProduct*>&);
-   	DECLARE_MULTICAST_DELEGATE_OneParam(FStringDelegate, const FString&); 
+   	DECLARE_MULTICAST_DELEGATE_OneParam(FStringDelegate, const FString&);
     DECLARE_MULTICAST_DELEGATE_TwoParams(FBoolStringDelegate, bool, const FString&);
-     
+
     static FBoolDelegate          OnInitializedDelegate;
     static FProductDelegate       OnSuccessDelegate;
     static FProductStringDelegate OnFailureDelegate;
@@ -52,38 +53,38 @@ public:
     static FProductArrayDelegate  OnProductRequestSuccessDelegate;
     static FStringDelegate        OnProductRequestFailureDelegate;
     static FBoolStringDelegate    OnRestoreCompleteDelegate;
-    
+
     DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FBoolDynDelegate, bool, Status);
     DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FProductDynDelegate, const USdkboxIAPProduct*, Product);
     DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FProductStringDynDelegate, const USdkboxIAPProduct*, Product, const FString&, Message);
     DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FProductArrayDynDelegate, const TArray<USdkboxIAPProduct*>&, Products);
-   	DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FStringDynDelegate, const FString&, Message); 
+   	DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FStringDynDelegate, const FString&, Message);
     DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FBoolStringDynDelegate, bool, Status, const FString&, Message);
-    
+
     UPROPERTY(BlueprintAssignable)
     FBoolDynDelegate OnInitialized;
-    
+
     UPROPERTY(BlueprintAssignable)
     FProductDynDelegate OnSuccess;
-    
+
     UPROPERTY(BlueprintAssignable)
     FProductStringDynDelegate OnFailure;
-    
+
     UPROPERTY(BlueprintAssignable)
     FProductDynDelegate OnCanceled;
-    
+
     UPROPERTY(BlueprintAssignable)
     FProductDynDelegate OnRestored;
-    
+
     UPROPERTY(BlueprintAssignable)
     FProductArrayDynDelegate OnProductRequestSuccess;
-    
+
     UPROPERTY(BlueprintAssignable)
     FStringDynDelegate OnProductRequestFailure;
-    
+
     UPROPERTY(BlueprintAssignable)
     FBoolStringDynDelegate OnRestoreComplete;
-    
+
 protected:
 
 	void OnInitializedDelegate_Handler(bool status) { OnInitialized.Broadcast(status); }

@@ -1,7 +1,7 @@
 {
 	"FileVersion": 3,
 	"Version": 1,
-	"VersionName": "1.0",
+	"VersionName": "1.2",
 	"FriendlyName": "Sdkbox",
 	"Description": "This plugin provides SDKBOX core functionality.",
 	"Category": "SDKBOX",
