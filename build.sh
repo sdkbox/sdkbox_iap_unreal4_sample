@@ -13,7 +13,7 @@ cp sdkbox-core/build/v3/csc/android/jni/sdkbox/libs/armeabi-v7a/libsdkbox.a     
 cp sdkbox-core/build/v3/plugins/iap/android/jni/pluginiap/libs/armeabi-v7a/libPluginIAP.a    Plugins/Sdkbox/IAP/lib/Android/PluginIAP.a
 
 # poke out host
-sdkbox-core/poke.py Plugins/Sdkbox/IAP/lib/Android/sdkbox.a cocos2dx UnrealEngine4
-sdkbox-core/poke.py Plugins/Sdkbox/IAP/lib/iOS/sdkbox.a cocos2dx UnrealEngine4
+# sdkbox-core/poke.py Plugins/Sdkbox/IAP/lib/Android/sdkbox.a cocos2dx UnrealEngine4
+# sdkbox-core/poke.py Plugins/Sdkbox/IAP/lib/iOS/sdkbox.a cocos2dx UnrealEngine4
 
 echo Copied SDKBOX files to Unreal Engine 4.
