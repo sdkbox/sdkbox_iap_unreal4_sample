@@ -93,6 +93,7 @@ namespace UnrealBuildTool.Rules
 			else if (Target.Platform == UnrealTargetPlatform.Android)
 			{
                 PublicAdditionalLibraries.Add(Path.Combine(ModulePath, "../../lib/Android/PluginIAP.a"));
+                PublicAdditionalLibraries.Add(Path.Combine(ModulePath, "../../lib/Android/sdkbox.a"));
 
 				PrivateDependencyModuleNames.AddRange(new string[] { "Launch" });
 				AdditionalPropertiesForReceipt.Add(new ReceiptProperty("AndroidPlugin", Path.Combine(ModulePath, "SdkboxIAP.xml")));
