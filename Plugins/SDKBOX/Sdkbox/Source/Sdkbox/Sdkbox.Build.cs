@@ -25,10 +25,11 @@ namespace UnrealBuildTool.Rules
 	{
         private string ModulePath
         {
-            get { return Path.GetDirectoryName( RulesCompiler.GetModuleFilename( this.GetType().Name ) ); }
+            // get { return Path.GetDirectoryName( RulesCompiler.GetModuleFilename( this.GetType().Name ) ); }
+            get { return ModuleDirectory; }
         }
-        
-		public Sdkbox(TargetInfo Target)
+
+		public Sdkbox(ReadOnlyTargetRules Target) : base(Target)
 		{
 			PublicIncludePaths.AddRange(
 				new string[] {
@@ -66,7 +67,7 @@ namespace UnrealBuildTool.Rules
 					// ... add any modules that your module loads dynamically here ...
 				}
 		    );
-				
+
 			PrivateIncludePathModuleNames.AddRange(
                 new string[] {
                     "Settings"
@@ -74,14 +75,14 @@ namespace UnrealBuildTool.Rules
 			);
 
 
-			if (Target.Platform == UnrealTargetPlatform.IOS) 
+			if (Target.Platform == UnrealTargetPlatform.IOS)
 			{
-                
+
 			    PublicAdditionalLibraries.Add(Path.Combine(ModulePath, "../../lib/iOS/sdkbox.a"));
-			
+
                 PublicFrameworks.AddRange(
-                    new string[] 
-                    { 
+                    new string[]
+                    {
                         "SystemConfiguration",
                         "Security"
                     }
@@ -90,7 +91,7 @@ namespace UnrealBuildTool.Rules
 			else if (Target.Platform == UnrealTargetPlatform.Android)
 			{
 			    PublicAdditionalLibraries.Add(Path.Combine(ModulePath, "../../lib/Android/sdkbox.a"));
-                
+
 				PrivateDependencyModuleNames.AddRange(new string[] { "Launch" });
 				AdditionalPropertiesForReceipt.Add(new ReceiptProperty("AndroidPlugin", Path.Combine(ModulePath, "Sdkbox.xml")));
 			}

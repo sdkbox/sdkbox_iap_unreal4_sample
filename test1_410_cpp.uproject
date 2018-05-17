@@ -1,6 +1,6 @@
 {
 	"FileVersion": 3,
-	"EngineAssociation": "4.10",
+	"EngineAssociation": "4.19",
 	"Category": "",
 	"Description": "",
 	"Modules": [
@@ -12,6 +12,24 @@
 				"Engine",
 				"CoreUObject"
 			]
+		}
+	],
+	"Plugins": [
+		{
+			"Name": "OculusVR",
+			"Enabled": false
+		},
+		{
+			"Name": "SteamVR",
+			"Enabled": false
+		},
+		{
+			"Name": "Sdkbox",
+			"Enabled": true
+		},
+		{
+			"Name": "SdkboxIAP",
+			"Enabled": true
 		}
 	],
 	"TargetPlatforms": [

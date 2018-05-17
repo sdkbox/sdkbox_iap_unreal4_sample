@@ -1,7 +1,7 @@
 {
 	"FileVersion": 3,
 	"Version": 1,
-	"VersionName": "1.0",
+	"VersionName": "1.2",
 	"FriendlyName": "In App Purchase",
 	"Description": "This plugin provides SDKBOX In App Purchase functionality.",
 	"Category": "SDKBOX",

@@ -25,11 +25,13 @@ namespace UnrealBuildTool.Rules
 	{
         private string ModulePath
         {
-            get { return Path.GetDirectoryName( RulesCompiler.GetModuleFilename( this.GetType().Name ) ); }
+            get { return ModuleDirectory; }
         }
-        
-		public SdkboxIAP(TargetInfo Target)
+
+		public SdkboxIAP(ReadOnlyTargetRules Target) : base(Target)
 		{
+            bEnforceIWYU = false; // fix error: Expected xx.h to be first header included.
+
 			PublicIncludePaths.AddRange(
 				new string[] {
 					// ... add public include paths required here ...
@@ -64,10 +66,10 @@ namespace UnrealBuildTool.Rules
 				new string[]
 				{
 					// ... add any modules that your module loads dynamically here ...
-					"Sdkbox"
+					// "Sdkbox"
 				}
 		    );
-				
+
 			PrivateIncludePathModuleNames.AddRange(
                 new string[] {
                     "Settings"
@@ -75,14 +77,14 @@ namespace UnrealBuildTool.Rules
 			);
 
 
-			if (Target.Platform == UnrealTargetPlatform.IOS) 
+			if (Target.Platform == UnrealTargetPlatform.IOS)
 			{
-                
+
                 PublicAdditionalLibraries.Add(Path.Combine(ModulePath, "../../lib/iOS/PluginIAP.a"));
 
                 PublicFrameworks.AddRange(
-                    new string[] 
-                    { 
+                    new string[]
+                    {
                         "SystemConfiguration",
                         "Security"
                     }
@@ -91,6 +93,7 @@ namespace UnrealBuildTool.Rules
 			else if (Target.Platform == UnrealTargetPlatform.Android)
 			{
                 PublicAdditionalLibraries.Add(Path.Combine(ModulePath, "../../lib/Android/PluginIAP.a"));
+                PublicAdditionalLibraries.Add(Path.Combine(ModulePath, "../../lib/Android/sdkbox.a"));
 
 				PrivateDependencyModuleNames.AddRange(new string[] { "Launch" });
 				AdditionalPropertiesForReceipt.Add(new ReceiptProperty("AndroidPlugin", Path.Combine(ModulePath, "SdkboxIAP.xml")));
